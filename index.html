@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คลังความรู้ & ข้อสอบ วิทยาศาสตร์ ม.1 เล่ม 1</title>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --accent: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        body {
+            font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 25px 15px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
+            margin-bottom: 20px;
+        }
+
+        header h1 { margin: 0; font-size: 1.6rem; }
+        header p { margin: 8px 0 0 0; opacity: 0.9; font-size: 0.95rem; }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            background: #e2e8f0;
+            color: var(--text);
+            font-weight: bold;
+            font-size: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(30, 64, 175, 0.3);
+        }
+
+        .score-board {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            border: 2px solid var(--primary-light);
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .unit-title {
+            color: var(--primary);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 0;
+            font-size: 1.25rem;
+        }
+
+        .knowledge-box {
+            background: #f0f9ff;
+            border-left: 5px solid var(--primary-light);
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .knowledge-box h4 { margin: 0 0 5px 0; color: var(--primary); }
+        .knowledge-box p { margin: 0; font-size: 0.95rem; line-height: 1.5; }
+
+        .highlight {
+            background-color: #fef08a;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        /* Quiz Styling */
+        .question-card {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed #e2e8f0;
+        }
+
+        .question { 
+            font-weight: bold; 
+            font-size: 1.05rem; 
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .options { display: flex; flex-direction: column; gap: 8px; }
+
+        .option-btn {
+            padding: 12px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background: white;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .option-btn:hover { background: #f8fafc; }
+        .option-btn.correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #15803d; font-weight: bold; }
+        .option-btn.incorrect { background: #fee2e2 !important; border-color: #ef4444 !important; color: #b91c1c; }
+
+        .explanation {
+            margin-top: 12px;
+            padding: 12px;
+            background: #f0fdf4;
+            border-left: 4px solid var(--accent);
+            border-radius: 6px;
+            display: none;
+            font-size: 0.9rem;
+            color: #166534;
+            line-height: 1.5;
+        }
+
+        .finish-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+            margin-top: 10px;
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🔬 คลังความรู้ & ข้อสอบ วิทยาศาสตร์ ม.1 เล่ม 1</h1>
+        <p>สรุปประเด็นสำคัญออกสอบบ่อย + แนวข้อสอบแข่งขัน 30 ข้อ</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('knowledge')">📚 คลังความรู้สำคัญ</button>
+        <button class="tab-btn" onclick="switchTab('quiz')">✍️ ตะลุยโจทย์ 30 ข้อ</button>
+    </div>
+
+    <!-- Section คลังความรู้ -->
+    <div id="knowledge-section">
+        <div class="card">
+            <h2 class="unit-title">📌 หน่วยที่ 1: เรียนรู้วิทยาศาสตร์อย่างไร</h2>
+            <div class="knowledge-box">
+                <h4>1. ทักษะกระบวนการทางวิทยาศาสตร์ & ตัวแปร</h4>
+                <p>• <span class="highlight">ตัวแปรต้น:</span> สิ่งที่เป็นสาเหตุ หรือสิ่งที่เราจัดให้ต่างกันเพื่อทดลอง<br>
+                • <span class="highlight">ตัวแปรตาม:</span> ผลการทดลองที่เปลี่ยนแปลงไปตามตัวแปรต้น<br>
+                • <span class="highlight">ตัวแปรควบคุม:</span> สิ่งที่ต้องควบคุมให้เหมือนกันทุกชุดทดลอง เพื่อให้ผลเที่ยงตรง</p>
+            </div>
+            <div class="knowledge-box">
+                <h4>2. หน่วยมาตรฐาน SI ที่ออกสอบบ่อย</h4>
+                <p>• มวล = กิโลกรัม (kg) | ความยาว = เมตร (m) | อุณหภูมิ = เคลวิน (K) | เวลา = วินาที (s)</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="unit-title">📌 หน่วยที่ 2: สารบริสุทธิ์ (เคมี)</h2>
+            <div class="knowledge-box">
+                <h4>1. ความหนาแน่น (Density)</h4>
+                <p>• สูตร: <span class="highlight">D = m / V</span> (ความหนาแน่น = มวล / ปริมาตร)<br>
+                • วัตถุที่ความหนาแน่น < น้ำ (1 g/cm³) จะ <b>ลอยน้ำ</b> | ถ้ามากกว่าจะ <b>จมน้ำ</b></p>
+            </div>
+            <div class="knowledge-box">
+                <h4>2. สารบริสุทธิ์ vs สารผสม</h4>
+                <p>• <span class="highlight">สารบริสุทธิ์:</span> มีจุดเดือด จุดหลอมเหลว และความหนาแน่น <b>คงที่</b> (เช่น น้ำบริสุทธิ์, ทองคำ, เหล็ก)<br>
+                • <span class="highlight">สารผสม:</span> จุดเดือดและจุดหลอมเหลว <b>ไม่คงที่</b> มีช่วงอุณหภูมิการหลอมเหลวกว้าง (เช่น น้ำเกลือ, อากาศ)</p>
+            </div>
+            <div class="knowledge-box">
+                <h4>3. ธาตุและสารประกอบ</h4>
+                <p>• <b>ธาตุ (Element):</b> ประกอบด้วยอะตอมชนิดเดียว เช่น O₂, Fe, Au, H₂<br>
+                • <b>สารประกอบ (Compound):</b> ธาตุตั้งแต่ 2 ชนิดขึ้นไปมารวมกันทางเคมี เช่น H₂O, NaCl, CO₂</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="unit-title">📌 หน่วยที่ 3: หน่วยพื้นฐานของสิ่งมีชีวิต (ชีววิทยา)</h2>
+            <div class="knowledge-box">
+                <h4>1. โครงสร้างและหน้าที่ของเซลล์</h4>
+                <p>• <span class="highlight">ผนังเซลล์ (Cell Wall) & คลอโรพลาสต์:</span> พบเฉพาะในเซลล์พืช<br>
+                • <span class="highlight">นิวเคลียส:</span> ศูนย์กลางควบคุมเซลล์และเก็บรหัสพันธุกรรม (DNA)<br>
+                • <span class="highlight">ไมโทคอนเดรีย:</span> แหล่งสร้างพลังงานให้แก่เซลล์</p>
+            </div>
+            <div class="knowledge-box">
+                <h4>2. การลำเลียงสารเข้า-ออกเซลล์</h4>
+                <p>• <span class="highlight">การแพร่ (Diffusion):</span> อนุภาคสารเคลื่อนที่จาก <b>เข้มข้นมาก ➔ เข้มข้นน้อย</b> (เช่น ได้กลิ่นหอม)<br>
+                • <span class="highlight">การออสโมซิส (Osmosis):</span> <b>น้ำ</b> เคลื่อนที่ผ่านเยื่อเลือกผ่านจากบริเวณที่มีน้ำมาก (สารละลายเจือจาง) ไปยังบริเวณที่มีน้ำน้อย (สารละลายเข้มข้น)</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="unit-title">📌 หน่วยที่ 4: การดำรงชีวิตของพืช</h2>
+            <div class="knowledge-box">
+                <h4>1. การสังเคราะห์ด้วยแสง (Photosynthesis)</h4>
+                <p>• สมการ: <span class="highlight">น้ำ + CO₂ ➔ (แสง + คลอโรฟิลล์) ➔ กลูโคส + O₂ + น้ำ</span><br>
+                • พืชสะสมน้ำตาลส่วนเกินไว้ในรูปของ <span class="highlight">แป้ง</span> (ทดสอบด้วยสารละลายไอโอดีน เปลี่ยนเป็นสีน้ำเงินเข้ม/ม่วงดำ)</p>
+            </div>
+            <div class="knowledge-box">
+                <h4>2. ท่อลำเลียงในพืช</h4>
+                <p>• <span class="highlight">ไซเล็ม (Xylem):</span> ลำเลียงน้ำและแร่ธาตุ (ทิศทาง: จากรากขึ้นสู่ยอด)<br>
+                • <span class="highlight">โฟลเอ็ม (Phloem):</span> ลำเลียงอาหารและน้ำตาล (ทิศทาง: ไปได้ทั่วทุกส่วน)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section ข้อสอบ -->
+    <div id="quiz-section" class="hidden">
+        <div class="score-board" id="scoreBoard">
+            ทำไปแล้ว: <span id="answeredCount">0</span>/30 ข้อ | คะแนนปัจจุบัน: <span id="currentScore">0</span> คะแนน
+        </div>
+
+        <div class="card" id="quizContainer">
+            <!-- ข้อสอบจะถูกโหลดผ่าน JS -->
+        </div>
+
+        <button class="finish-btn" onclick="showSummary()">🏆 ดูสรุปผลคะแนนทั้งหมด</button>
+    </div>
+</div>
+
+<script>
+function switchTab(tab) {
+    const knSec = document.getElementById('knowledge-section');
+    const qzSec = document.getElementById('quiz-section');
+    const btns = document.querySelectorAll('.tab-btn');
+
+    if(tab === 'knowledge') {
+        knSec.classList.remove('hidden');
+        qzSec.classList.add('hidden');
+        btns[0].classList.add('active');
+        btns[1].classList.remove('active');
+    } else {
+        qzSec.classList.remove('hidden');
+        knSec.classList.add('hidden');
+        btns[1].classList.add('active');
+        btns[0].classList.remove('active');
+    }
+}
+
+const quizData = [
+    { q: "1. ในการทดลองหาผลของปริมาณแสงที่มีต่อการเจริญเติบโตของพืช 'ปริมาณแสง' จัดเป็นตัวแปรชนิดใด?", options: ["ก. ตัวแปรตาม", "ข. ตัวแปรต้น", "ค. ตัวแปรควบคุม", "ง. ตัวแปรแทรกซ้อน"], ans: 1, exp: "ตัวแปรต้น คือ สิ่งที่เราต้องการศึกษาหรือจัดให้แตกต่างกัน" },
+    { q: "2. การบันทึกผลว่า 'สารเคมีนี้มีลักษณะเป็นเกล็ดสีขาว ไม่มีกลิ่น' จัดเป็นการใช้ทักษะทางวิทยาศาสตร์ด้านใด?", options: ["ก. การลงความเห็น", "ข. การตั้งสมมติฐาน", "ค. การสังเกต", "ง. การตีความหมาย"], ans: 2, exp: "การสังเกตเป็นการใช้ประสาทสัมผัสเก็บข้อมูลโดยไม่ใส่ความคิดเห็นส่วนตัว" },
+    { q: "3. ข้อใดคือหน่วย SI ของ 'มวล' ในทางวิทยาศาสตร์?", options: ["ก. กรัม (g)", "ข. กิโลกรัม (kg)", "ค. ปอนด์ (lb)", "ง. ขีด"], ans: 1, exp: "หน่วยมาตรฐาน SI ของมวลคือ กิโลกรัม (kg)" },
+    { q: "4. วัตถุชิ้นหนึ่งมีมวล 100 กรัม ปริมาตร 20 ลูกบาศก์เซนติเมตร วัตถุนี้มีความหนาแน่นเท่าใด?", options: ["ก. 0.2 g/cm³", "ข. 5 g/cm³", "ค. 80 g/cm³", "ง. 2000 g/cm³"], ans: 1, exp: "สูตร D = m / V ➔ 100 / 20 = 5 g/cm³" },
+    { q: "5. ถ้านำวัตถุที่มีความหนาแน่น 0.8 g/cm³ ไปใส่ในน้ำ (ความหนาแน่นน้ำ = 1 g/cm³) จะเกิดอะไรขึ้น?", options: ["ก. จมมิดถ้วย", "ข. ลอยน้ำ", "ค. แขวนกึ่งกลางน้ำพอดี", "ง. ระเหยกลายเป็นไอ"], ans: 1, exp: "วัตถุที่มีความหนาแน่นน้อยกว่าของเหลวจะลอยน้ำได้" },
+    { q: "6. ข้อใดเป็นสมบัติเฉพาะตัวของ 'สารบริสุทธิ์'?", options: ["ก. มีจุดเดือดไม่คงที่", "ข. ช่วงอุณหภูมิการหลอมเหลวกว้าง", "ค. มีจุดเดือดและจุดหลอมเหลวคงที่", "ง. ประกอบด้วยธาตุตั้งแต่ 3 ชนิดขึ้นไป"], ans: 2, exp: "สารบริสุทธิ์มีจุดเดือดและจุดหลอมเหลวคงที่" },
+    { q: "7. สารในข้อใดจัดเป็น 'ธาตุ' ทั้งหมด?", options: ["ก. น้ำ (H₂O), แก๊สออกซิเจน (O₂)", "ข. เหล็ก (Fe), แก๊สไนโตรเจน (N₂)", "ค. เกลือแกง (NaCl), ทองคำ (Au)", "ง. คาร์บอนไดออกไซด์ (CO₂), เงิน (Ag)"], ans: 1, exp: "ธาตุประกอบด้วยอะตอมเพียงชนิดเดียว เช่น Fe และ N₂" },
+    { q: "8. ข้อใดถูกต้องเกี่ยวกับอนุภาคพื้นฐานของอะตอม?", options: ["ก. โปรตอนมีประจุลบ", "ข. อิเล็กตรอนมีประจุบวก", "ค. นิวตรอนมีประจุเป็นกลาง", "ง. นิวเคลียสมีแต่อิเล็กตรอน"], ans: 2, exp: "นิวตรอนเป็นกลางทางไฟฟ้า โปรตอนเป็นบวก อิเล็กตรอนเป็นลบ" },
+    { q: "9. กราฟการเปลี่ยนสถานะของสารชนิดหนึ่งพบว่า ขณะกำลังเดือด อุณหภูมิคงที่อยู่ที่ 100°C แสดงว่าสารนี้คือสารใด?", options: ["ก. สารผสม", "ข. สารบริสุทธิ์", "ค. สารเนื้อผสม", "ง. คอลลอยด์"], ans: 1, exp: "ขณะเปลี่ยนสถานะ สารบริสุทธิ์จะอุณหภูมิคงที่" },
+    { q: "10. วิธีใดเหมาะที่สุดในการแยกสารผสมที่เป็นของแข็งละลายเนียนในของเหลว เช่น น้ำเกลือ?", options: ["ก. การกรอง", "ข. การระเหยแห้ง", "ค. การใช้แม่เหล็กดูด", "ง. การหยิบออก"], ans: 1, exp: "การระเหยแห้งใช้แยกของแข็งที่ละลายในของเหลว" },
+    { q: "11. ส่วนประกอบใดของกล้องจุลทรรศน์ใช้ปรับปริมาณแสงให้เข้าสู่ลำกล้อง?", options: ["ก. ไดอะแฟรม (Diaphragm)", "ข. ปุ่มปรับภาพละเอียด", "ค. เลนส์ใกล้ตา", "ง. แท่นวางวัตถุ"], ans: 0, exp: "ไดอะแฟรมทำหน้าที่ควบคุมปริมาณแสง" },
+    { q: "12. หากต้องการภาพที่คมชัดที่สุดในการดูเซลล์ภายใต้กล้องจุลทรรศน์ ควรปรับปุ่มใดเป็นอันดับสุดท้าย?", options: ["ก. ปุ่มปรับภาพหยาบ", "ข. ปุ่มปรับภาพละเอียด", "ค. ปุ่มหมุนเลนส์", "ง. แท่นวางวัตถุ"], ans: 1, exp: "ปุ่มปรับภาพละเอียดใช้ปรับระยะโฟกัสให้ภาพชัดเจนที่สุด" },
+    { q: "13. โครงสร้างใดพบเฉพาะใน 'เซลล์พืช' แต่ไม่พบใน 'เซลล์สัตว์'?", options: ["ก. นิวเคลียส, ไมโทคอนเดรีย", "ข. ผนังเซลล์, คลอโรพลาสต์", "ค. เยื่อหุ้มเซลล์, ไซโทพลาซึม", "ง. แวคิวโอล, ไรโบโซม"], ans: 1, exp: "ผนังเซลล์และคลอโรพลาสต์เป็นโครงสร้างเฉพาะของเซลล์พืช" },
+    { q: "14. 'เยื่อหุ้มเซลล์' มีสมบัติเป็นสิ่งใด?", options: ["ก. เยื่อผ่านได้ทุกชนิด", "ข. เยื่อเลือกผ่าน (Semi-permeable)", "ค. เยื่อทึบแสง", "ง. ผนังแข็งเกร็ง"], ans: 1, exp: "เยื่อหุ้มเซลล์เลือกให้สารบางชนิดผ่านเข้า-ออกได้" },
+    { q: "15. ออร์แกเนลล์ใดทำหน้าที่สร้างพลังงานให้แก่เซลล์?", options: ["ก. นิวเคลียส", "ข. คลอโรพลาสต์", "ค. ไมโทคอนเดรีย", "ง. กอลจิบอดี"], ans: 2, exp: "ไมโทคอนเดรียทำหน้าที่สร้างพลังงานให้แก่เซลล์" },
+    { q: "16. การจุดน้ำหอมที่มุมห้องแล้วได้กลิ่นหอมฟุ้งทั่วห้อง เกิดจากกระบวนการใด?", options: ["ก. การออสโมซิส", "ข. การแพร่ (Diffusion)", "ค. แรงดันราก", "ง. การสังเคราะห์แสง"], ans: 1, exp: "การแพร่คือการเคลื่อนที่ของอนุภาคสารจากความเข้มข้นสูงไปต่ำ" },
+    { q: "17. นำเซลล์เม็ดเลือดแดงไปแช่ใน 'น้ำกลั่น' จะเกิดอะไรขึ้น?", options: ["ก. เซลล์เหี่ยว", "ข. เซลล์เต่งและแตก", "ค. เซลล์เท่าเดิม", "ง. เซลล์แบ่งตัว"], ans: 1, exp: "น้ำกลั่นเจือจางกว่าภายในเซลล์ น้ำจึงออสโมซิสเข้าจนเซลล์เต่งและแตก" },
+    { q: "18. การนำผักที่เหี่ยวไปแช่น้ำแล้วผักกลับมากระชับสดชื่น เกิดจากกระบวนการใด?", options: ["ก. น้ำแพร่ออก", "ข. น้ำออสโมซิสเข้าสู่เซลล์พืช", "ค. สารอาหารแพร่ออก", "ง. พืชสร้างคลอโรพลาสต์เพิ่ม"], ans: 1, exp: "น้ำออสโมซิสเข้าสู่เซลล์ผัก ทำให้แรงดันเต่งเพิ่มขึ้น" },
+    { q: "19. โครงสร้างใดทำหน้าที่ควบคุมการทำงานของเซลล์ และเก็บรหัสพันธุกรรม (DNA)?", options: ["ก. ไซโทพลาซึม", "ข. นิวเคลียส", "ค. เยื่อหุ้มเซลล์", "ง. เซนทริโอล"], ans: 1, exp: "นิวเคลียสเป็นศูนย์กลางควบคุมกิจกรรมและเก็บบันทึกรหัสพันธุกรรม" },
+    { q: "20. ข้อใดคือการจัดระบบของสิ่งมีชีวิตจากเล็กไปใหญ่ได้ถูกต้อง?", options: ["ก. เซลล์ ➔ เนื้อเยื่อ ➔ อวัยวะ ➔ ระบบอวัยวะ ➔ ร่างกาย", "ข. เนื้อเยื่อ ➔ เซลล์ ➔ อวัยวะ ➔ ร่างกาย", "ค. เซลล์ ➔ อวัยวะ ➔ เนื้อเยื่อ ➔ ร่างกาย", "ง. อวัยวะ ➔ เซลล์ ➔ เนื้อเยื่อ ➔ ระบบอวัยวะ"], ans: 0, exp: "ระดับการจัดระบบ: เซลล์ ➔ เนื้อเยื่อ ➔ อวัยวะ ➔ ระบบอวัยวะ ➔ ร่างกาย" },
+    { q: "21. ปัจจัยสำคัญที่ใช้ในกระบวนการสังเคราะห์ด้วยแสงของพืชคือข้อใด?", options: ["ก. น้ำ + แก๊สออกซิเจน + แสง", "ข. น้ำ + แก๊สคาร์บอนไดออกไซด์ + แสง + คลอโรฟิลล์", "ค. แก๊สออกซิเจน + น้ำตาล + แสง", "ง. ปุ๋ย + แก๊สไนโตรเจน + แสง"], ans: 1, exp: "สารตั้งต้นคือ น้ำ และ CO₂ โดยใช้ แสง และ คลอโรฟิลล์" },
+    { q: "22. ผลผลิตหลักที่ได้จากกระบวนการสังเคราะห์ด้วยแสงของพืชคือข้อใด?", options: ["ก. น้ำตาลกลูโคส + แก๊สออกซิเจน", "ข. แก๊สคาร์บอนไดออกไซด์ + แป้ง", "ค. แก๊สไนโตรเจน + น้ำ", "ง. กรดอะมิโน + แสง"], ans: 0, exp: "ผลผลิตหลักคือน้ำตาลกลูโคส และแก๊สออกซิเจน" },
+    { q: "23. พืชสะสมน้ำตาลที่สร้างขึ้นเหลือใช้อยู่ในรูปของสารใด?", options: ["ก. เซลลูโลส", "ข. แป้ง (Starch)", "ค. ไขมัน", "ง. โปรตีน"], ans: 1, exp: "พืชสะสมน้ำตาลส่วนเกินไว้ในรูปของ 'แป้ง'" },
+    { q: "24. สารเคมีใดใช้ทดสอบหา 'แป้ง' ในใบพืช?", options: ["ก. สารละลายเบเนดิกต์", "ข. สารละลายไอโอดีน", "ค. เจนเชียนไวโอเลต", "ง. แอลกอฮอล์"], ans: 1, exp: "ไอโอดีนใช้ทดสอบแป้ง โดยจะเปลี่ยนเป็นสีน้ำเงินเข้ม/ม่วงดำ" },
+    { q: "25. เนื้อเยื่อ 'ไซเล็ม (Xylem)' ทำหน้าที่ลำเลียงอะไร และไปในทิศทางใด?", options: ["ก. ลำเลียงอาหาร จากใบลงสู่ราก", "ข. ลำเลียงน้ำและแร่ธาตุ จากรากขึ้นสู่ใบ", "ค. ลำเลียงแก๊สออกซิเจน จากปากใบไปราก", "ง. ลำเลียงน้ำตาล ไปทั่วลำต้น"], ans: 1, exp: "ไซเล็ม (Xylem) ลำเลียงน้ำและแร่ธาตุ จากล่างขึ้นบน" },
+    { q: "26. เนื้อเยื่อ 'โฟลเอ็ม (Phloem)' ทำหน้าที่อะไร?", options: ["ก. ลำเลียงน้ำ", "ข. ลำเลียงอาหารและน้ำตาล", "ค. สังเคราะห์แสง", "ง. ดักจับแมลง"], ans: 1, exp: "โฟลเอ็ม (Phloem) ลำเลียงอาหารและน้ำตาลไปทั่วทั้งต้น" },
+    { q: "27. การคายน้ำของพืชส่วนใหญ่เกิดขึ้นที่โครงสร้างใด?", options: ["ก. ขนราก", "ข. ปากใบ (Stoma)", "ค. ปลายยอด", "ง. ท่อไซเล็ม"], ans: 1, exp: "พืชคายน้ำเป็นไอระเหยผ่านทางปากใบ (Stoma) เป็นหลัก" },
+    { q: "28. ส่วนประกอบของดอกไม้ในข้อใด ทำหน้าที่สร้างเซลล์สืบพันธุ์เพศผู้?", options: ["ก. เกสรเพศเมีย (Pistil)", "ข. อับเรณู (Anther) ในเกสรเพศผู้", "ค. กลีบเลี้ยง (Sepeal)", "ง. ฐานรองดอก"], ans: 1, exp: "อับเรณูบรรจุละอองเรณู ซึ่งเป็นเซลล์สืบพันธุ์เพศผู้" },
+    { q: "29. หลังจากการปฏิสนธิของดอกไม้ 'รังไข่ (Ovary)' จะเจริญไปเป็นสิ่งใด?", options: ["ก. เมล็ด", "ข. ผลไม้", "ค. กลีบดอก", "ง. ใบเลี้ยง"], ans: 1, exp: "รังไข่เจริญกลายเป็น 'ผล' ส่วนออวุลเจริญเป็น 'เมล็ด'" },
+    { q: "30. ข้อใดจัดเป็นการสืบพันธุ์แบบ 'ไม่อาศัยเพศ' ของพืช?", options: ["ก. การถ่ายเรณูด้วยลม", "ข. การเพาะเมล็ดมังคุด", "ค. การติดตา และการปักชำ", "ง. การปฏิสนธิคู่"], ans: 2, exp: "การติดตา การปักชำ ไม่มีการผสมเกสร จึงเป็นการสืบพันธุ์แบบไม่อาศัยเพศ" }
+];
+
+let score = 0;
+let answered = 0;
+
+function renderQuiz() {
+    const container = document.getElementById('quizContainer');
+    let html = '';
+
+    quizData.forEach((item, index) => {
+        html += `
+            <div class="question-card" id="q-card-${index}">
+                <div class="question">${item.q}</div>
+                <div class="options">
+                    ${item.options.map((opt, optIdx) => `
+                        <button class="option-btn" onclick="check(${index}, ${optIdx})">${opt}</button>
+                    `).join('')}
+                </div>
+                <div id="exp-${index}" class="explanation">💡 <b>คำอธิบาย:</b> ${item.exp}</div>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+}
+
+function check(qIdx, selectedOpt) {
+    const card = document.getElementById(`q-card-${qIdx}`);
+    const btns = card.querySelectorAll('.option-btn');
+    const correctOpt = quizData[qIdx].ans;
+    const exp = document.getElementById(`exp-${qIdx}`);
+
+    if (btns[0].disabled) return;
+
+    btns.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === correctOpt) {
+            btn.classList.add('correct');
+        }
+        if (idx === selectedOpt && selectedOpt !== correctOpt) {
+            btn.classList.add('incorrect');
+        }
+    });
+
+    if (selectedOpt === correctOpt) {
+        score++;
+    }
+
+    answered++;
+    document.getElementById('currentScore').innerText = score;
+    document.getElementById('answeredCount').innerText = answered;
+    exp.style.display = 'block';
+}
+
+function showSummary() {
+    if (answered < quizData.length) {
+        if (!confirm(`คุณยังทำไม่ครบทุกข้อ (ทำไปแล้ว ${answered}/30 ข้อ) ต้องการดูสรุปคะแนนเลยหรือไม่?`)) {
+            return;
+        }
+    }
+    alert(`🎉 สรุปผลการทำข้อสอบ!\nคะแนนที่ได้: ${score} / 30 คะแนน\nคิดเป็น: ${((
